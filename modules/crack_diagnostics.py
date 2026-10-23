@@ -14,7 +14,8 @@ from modules.ai_engine import analyze_multimodal
 from modules.ui_components import (
     render_metric_card,
     render_status_pill,
-    render_hazard_card
+    render_hazard_card,
+    stretch_width
 )
 
 CRACK_SYSTEM_INSTRUCTION = """You are a Senior Structural Forensic Engineer and Concrete Repair Specialist adhering to IS 456:2000, ACI 224R-01 (Control of Cracking in Concrete Structures), and ICRI guidelines.
@@ -90,11 +91,11 @@ def render_crack_tab(api_key: Optional[str], sample_images: Dict[str, Image.Imag
             if uploaded_file:
                 image_to_analyze = Image.open(uploaded_file)
 
-        diagnose_btn = st.button("🔬 Execute Structural Crack Diagnostics", type="primary", use_container_width=True)
+        diagnose_btn = st.button("🔬 Execute Structural Crack Diagnostics", type="primary", **stretch_width())
 
     with col_preview:
         if image_to_analyze:
-            st.image(image_to_analyze, caption="Defect Visual Inspection Surface", use_container_width=True)
+            st.image(image_to_analyze, caption="Defect Visual Inspection Surface", **stretch_width())
         else:
             st.info("Upload or select a concrete surface image to view preview.")
 
@@ -190,5 +191,5 @@ def render_crack_tab(api_key: Optional[str], sample_images: Dict[str, Image.Imag
                 data=json_str,
                 file_name="structural_crack_diagnostic.json",
                 mime="application/json",
-                use_container_width=True
+                **stretch_width()
             )

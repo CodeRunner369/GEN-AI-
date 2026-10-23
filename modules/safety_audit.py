@@ -13,7 +13,8 @@ from modules.ai_engine import analyze_multimodal
 from modules.ui_components import (
     render_metric_card,
     render_status_pill,
-    render_hazard_card
+    render_hazard_card,
+    stretch_width
 )
 
 PPE_SYSTEM_INSTRUCTION = """You are a certified Lead Safety Auditor with OSHA 30-Hour Construction and Bureau of Indian Standards (IS 3786 / IS 456) accreditation.
@@ -87,11 +88,11 @@ def render_safety_tab(api_key: Optional[str], sample_images: Dict[str, Image.Ima
             if uploaded_file:
                 image_to_analyze = Image.open(uploaded_file)
 
-        audit_btn = st.button("🚀 Run Multimodal Safety Audit", type="primary", use_container_width=True)
+        audit_btn = st.button("🚀 Run Multimodal Safety Audit", type="primary", **stretch_width())
 
     with col_preview:
         if image_to_analyze:
-            st.image(image_to_analyze, caption="Site Inspection Viewport", use_container_width=True)
+            st.image(image_to_analyze, caption="Site Inspection Viewport", **stretch_width())
         else:
             st.info("Upload or select a sample image to view preview.")
 
@@ -184,7 +185,7 @@ def render_safety_tab(api_key: Optional[str], sample_images: Dict[str, Image.Ima
                     data=json_str,
                     file_name="site_safety_ppe_audit.json",
                     mime="application/json",
-                    use_container_width=True
+                    **stretch_width()
                 )
             with col_d2:
                 # Convert to CSV table
@@ -196,5 +197,5 @@ def render_safety_tab(api_key: Optional[str], sample_images: Dict[str, Image.Ima
                         data=csv_data,
                         file_name="ppe_compliance_checklist.csv",
                         mime="text/csv",
-                        use_container_width=True
+                        **stretch_width()
                     )

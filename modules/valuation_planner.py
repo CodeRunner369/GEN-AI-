@@ -9,7 +9,7 @@ import streamlit as st
 import pandas as pd
 from typing import Dict, Any
 
-from modules.ui_components import render_metric_card
+from modules.ui_components import render_metric_card, stretch_width
 
 # City benchmark rates (INR per sq.ft) for Construction and Market Real Estate
 LOCATION_TIERS = {
@@ -274,7 +274,7 @@ def render_valuation_tab():
             seed_val = st.number_input("Random Seed:", min_value=1, max_value=99999, value=1024, step=1)
         with col_gen:
             st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
-            gen_render_btn = st.button("✨ Generate 3D Concept Render", type="primary", use_container_width=True)
+            gen_render_btn = st.button("✨ Generate 3D Concept Render", type="primary", **stretch_width())
 
     # State for render URL
     if "pollinations_render_url" not in st.session_state:
@@ -288,6 +288,6 @@ def render_valuation_tab():
         st.image(
             img_url,
             caption="Pollinations / Flux 3D Conceptual Architectural Rendering",
-            use_container_width=True
+            **stretch_width()
         )
         st.markdown(f"[🔗 Open Full-Res Image in Browser]({img_url})")

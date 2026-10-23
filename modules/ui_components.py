@@ -5,6 +5,16 @@ Theme: High-contrast Construction Tech (Slate, Carbon, Safety Amber, Emerald, Ru
 
 import streamlit as st
 import json
+import inspect
+
+def stretch_width() -> dict:
+    """
+    Returns {'width': 'stretch'} for modern Streamlit (>= 1.66 / Streamlit Cloud post-2025)
+    or {'use_container_width': True} for legacy Streamlit versions, eliminating all deprecation warnings.
+    """
+    if "width" in inspect.signature(st.button).parameters:
+        return {"width": "stretch"}
+    return {"use_container_width": True}
 
 def inject_custom_css():
     """Injects high-fidelity custom CSS styles for the construction platform."""

@@ -9,7 +9,7 @@ import streamlit as st
 from typing import Dict, Any, Optional
 
 from modules.ai_engine import run_engineering_chat
-from modules.ui_components import render_hazard_card
+from modules.ui_components import render_hazard_card, stretch_width
 
 WEATHER_PROTOCOLS = {
     "High Wind (>45 km/h / Gale Force)": {
@@ -205,16 +205,16 @@ def render_weather_tab(api_key: Optional[str]):
     preset_cols = st.columns(4)
     preset_clicked = None
     with preset_cols[0]:
-        if st.button("📏 IS 456 Minimum Cover", use_container_width=True):
+        if st.button("📏 IS 456 Minimum Cover", **stretch_width()):
             preset_clicked = "What are the minimum concrete cover requirements under IS 456 for beams, columns, and foundations?"
     with preset_cols[1]:
-        if st.button("🌧️ Monsoon Pour Precautions", use_container_width=True):
+        if st.button("🌧️ Monsoon Pour Precautions", **stretch_width()):
             preset_clicked = "What are the required field precautions and slump adjustments for pouring concrete during monsoon rain?"
     with preset_cols[2]:
-        if st.button("🛠️ Shear Crack Shoring", use_container_width=True):
+        if st.button("🛠️ Shear Crack Shoring", **stretch_width()):
             preset_clicked = "How should we shore and epoxy-inject a 2.5mm 45-degree diagonal shear crack at a beam-column joint?"
     with preset_cols[3]:
-        if st.button("🏗️ Tower Crane Wind Limit", use_container_width=True):
+        if st.button("🏗️ Tower Crane Wind Limit", **stretch_width()):
             preset_clicked = "What is the maximum wind speed allowable before shutting down tower cranes under OSHA and IS codes?"
 
     # Chat history state
